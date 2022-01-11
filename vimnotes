@@ -1,0 +1,49 @@
+vim的四种模式
+1.普通模式，浏览文件，复制粘贴，删除
+2.i，输入模式
+3.:，命令模式
+4.v，可视模式
+
+
+U:，命令行模式
+退出遇到'readonly' option is set
+1.ESC
+2.:set noreadonly
+3.:wq
+
+上  k  nk  向上n
+下  j  nj  向下n
+左  h  nh  向左n
+右  l  nl  向右n
+
+ctrl 左右，跨单词移动
+w  跳转到下一个单词开头
+b  跳转到前一个单词开头
+
+gg  回到文档最上方  对应vscode Home
+G  回到文档阿最下方  对应vscode  End
+ctrl u 向上翻页  PgUp
+ctrl d 向下翻页  PgDn
+f+字符  光标移动到当前行最近字符的位置
+复制y  粘贴p
+y4j复制下4行
+y4k复制向上4行
+y8l
+yfr复制到r为止的内容
+删除d
+dj删除当前行和下一行
+d8j删除下8行内容
+dfr删除到r的内容
+u撤销
+i在当前光标之前输入
+a在当前光标之后输入
+I在这一行开头输入
+A在这一行末尾开始输入
+caw删除当前单词进入输入模式
+cc删除当前行进入输入模式
+c4j删除下4行进入输入模式
+wq保存并退出
+
+
+NERDtree o 打开文件夹
+
