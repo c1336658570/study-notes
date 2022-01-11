@@ -38,6 +38,22 @@ mv 移动一个文件或目录（重命名）
 mv 1.test 2.test  将1.test改名为2.test
 mv 1.test ~/C/2.test 移动1.test到C/并改名为2.test
 
+1.echo “想要的内容”> 文件名
+将想要的内容覆盖到对应的文件当中去，文件当中之前的内容不复存在了，实际上是修改了原文件的内容。
+2.echo “想要的内容”>> 文件名
+将想要的内容追加到文件后，对文件之前的内容不修改，只进行增添，也叫追加重定向。
+3、将当前时间写入文件
+echo date +"%Y-%m-%d %H:%M:%S" begin >> test.txt
+
+1.一次显示整个文件。
+$ cat   filename
+2.从键盘创建一个文件。
+$ cat  >  filename
+只能创建新文件,不能编辑已有文件.
+3.将几个文件合并为一个文件。
+cat   file1   file2  > file
+
+
 归档压缩
 tar，即tape archive 档案打包
 tar -cvf example.tar example 将example文件夹打包成example.tar
