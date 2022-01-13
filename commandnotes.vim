@@ -122,4 +122,11 @@ useradd a1，默认会给a1创建一个同名组a1，只有他一个人
 在这一行前面加#
 #auth requiredpam_succeed_if.so user != root quiet_success 
 
+文件的权限
+onwner:文件的属主
+r:文件是否可读read
+w:文件是否可写write
+x:文件是否可以执行excute
 
+ls -l 文件名 查看该文件详细信息
+第一列表示权限  第二列表示有多少项 第三列作者 第四列所在组 第五列文件大小 第六列时间 第七列名字
