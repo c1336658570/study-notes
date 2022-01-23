@@ -285,3 +285,58 @@ usr/local/sbin
 这定PATH环境变量
 export PATH=$PATH:/home/cccccc 
 2.注销重新登陆
+
+pint url  查询能否访问某网站
+Ctrl+c  中断
+
+手动配置网路
+常用命令：ifconfig（列出网卡信息）,netstat等
+默认的，ubuntu不带ifconfig命令
+需要使用apt软件包管理器
+apt install net-tools 安装一个软件包
+apt remove net-tools 移除一个软件包
+apt search xxx 搜索
+apt list | grep xxx 列表
+1.查看网络配置
+ifconfig
+其中，if表示interface网络接口
+会列出所有的网络接口，及各个接口的状态
+2.开启/禁用网路
+sudo ifconfig xxx up
+sudo ifconfig xxx down
+
+FTP服务器
+怎么把文件传到ubuntu主机上？
+1.U盘拷贝
+2.网络传输
+FTP
+SFTP
+演示：使用FTP来传输文件
+客户端FileZilla(windows)
+服务器 vsftpd(ubuntu)
+
+SSH服务器
+使用SSH协议，可以实现：
+1.远程终端
+2.文件传输
+演示：
+1.使用Xshell远程登录
+2.使用Xftp传输文件
+参考网盘的4节课
+
+文本编辑vi
+vi/vim，一个基于控制台的文本编辑器
+gedit，一个基于GUI的文本编辑器
+vim是vi的升级版
+
+换行符
+Windows:\r\n
+Linux:\n
+可以在Notepad++里观察到此区别
+视图 | 显示符号 | 显示行尾符
+换行符的转换：
+编辑 | 文档格式转换 | 转换为UNIX格式
+注意：只有在编辑SHELL脚本时，才需要转换
+其他格式文件一般都不需要，如*.xml,*.c
+Notepad++编辑 | 文档格式转换 | UNIX
+
