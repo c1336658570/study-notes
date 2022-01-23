@@ -189,3 +189,99 @@ rwxr--r--
 3.执行程序时，必须加上路性
 ./hello.sh 
 /home/learn/hello.sh
+
+SHELL中的环境变量
+典型环境变量，PATH，JAVA_HOME
+SHELL中的变量
+SHELL，是一个脚本编程语言
+1.定义便利
+2.执行命令 echo ls cd cp
+3.if判断逻辑，while循环逻辑
+4.自定义的函数...
+示例：
+#!/bin/sh 
+# 定义变量
+OUTDIR = /opt
+# 使用变量
+echo "output to : ${OUTDIR}"
+ls %{OUTDIR}
+要点和细节
+NAME=value
+等号左右两端不要加空格
+2.使用一个变量
+${NAME}
+如果已经有了定界符，则可简写为$NAME
+如 echo ${NAME} /build/
+   echo %NAME /build/
+
+环境变量
+环境变量，存在于当前环境中的变量
+Linux,windows,都有环境变量
+如，PATH,JAVA_HOME
+定义环境变量
+export OUTDIR=/opt
+只对当前终端有效
+显示环境变量
+echo ${OUTDIR}
+查看所有环境变量
+printenv
+环境变量的使用：
+可以在当前终端中使用
+可以在SHELL脚本中使用
+
+用户环境变量
+用户环境变量：定义在~/.profile中
+.profile本身也是shell脚本
+在著目录下
+ls -la
+a表示all，显示所有文件
+注：在Linux下，以.开头的文件为隐藏文件
+1用文本编辑器打开~/.profile
+gedit ~/.profile 
+2添加
+expert JAVA_HOME=/opt/jdk1.8
+保存并关闭
+3注销，重新登录
+echo $JAVA_HOME
+原理：当用户打开终端时，会自动运行.profile，将变量注入到当前环境中。
+要点和细节
+1.以,开头为隐藏文件
+ls -a 查看所有文件
+2.此配置只对当前用户有效
+因为每个用户都有自己的配置文件.profile
+3.有的Linux下，使用.bash_profile
+
+系统环境变量
+系统环境变量：定义在/etc/profile中
+此中的环境变量对所有用户有效
+以root身份执行
+gedit /etc/profile 
+但是一般不直接修改/etc/profile
+而是在/etc/profile.d 创建一个自定义的脚本
+1.用gedit创建一个脚本
+gedit /etc/profile.d/myprofile.sh 
+2.定义环境变量
+export TOMCAT=/opt
+3.注销并重新登陆
+echo TOMCAT
+
+PATH环境变量 
+创建一个可执行脚本hello.sh
+直接执行：hello.sh  报错：未找到命令
+当前目录没有在PATH环境变量中，找不到hello.sh，需要加上路径
+PATH，最常见的环境变量
+用于描述可执行程序的搜索路径
+echo $PATH
+多个路径之间以冒号分隔
+默认的，系统从以下目录中搜索可执行程序
+/usr/bin  比如，/usr/bin/tar
+/usr/sbin  比如，/usr/sbin/useradd
+/usr/local/bin 
+usr/local/sbin
+其中，sbin为超级用户root才能执行的程序
+/usr/下系统自带的程序，/usr/local是用户安装的程序
+演示：修改PATH环境变量，用户和系统PATH都可以
+1.编辑/etc/profile.d/myprofile.sh
+这定PATH环境变量
+export PATH=$PATH:/home/cccccc 
+2.注销重新登陆
