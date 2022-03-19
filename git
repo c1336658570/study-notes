@@ -14,7 +14,7 @@ git config user.email
 配置
 git config --global user.name 用户命
 git config --global user.password 密码
-git config --global user.password "邮箱"
+git config --global user.email "邮箱"
 
 git config --global user.name "1336658570"
 git config --global  user.email "1336658570@qq.com"
