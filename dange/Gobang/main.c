@@ -1,4 +1,5 @@
 # include "Gobang.h"
+# include "ProcBar.h"
     
     int main()
     {
@@ -10,6 +11,7 @@
             scanf("%d", &select);
             switch(select)
             {
+                process_bar();
                 case 1:
                     Game();
                     break;
