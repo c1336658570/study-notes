@@ -68,13 +68,37 @@ rm -rf /* 删库跑路 好奇害死猫
           -C，参数指定目标路径，默认解压到当前目录下
 
           归档并压缩
-          tar -czvf example.tar.gz example 将example文件夹打包并压缩成example.tar.gc
+          使用gzip方式压缩
+          tar -czvf example.tar.gz example 将example文件夹打包并压缩成example.tar.gz
           tar -czvf C.tar.gz C
+          使用bzip2方式压缩
+          tar -jcvf test.tar.gz file1 file2
           解压缩
+          使用gzip方式解压缩
           tar -xzvf example.tar.gz 还原tar包
           tar -xzvf example.tar.gz -C outdir
           tar -xzvf C.tar.gz -C outdir/
-
+          使用bzip2方式解压缩
+          tar -jcvf test.tar.gz file1 file2
+          
+          使用rar压缩
+          rar a -r 压缩包名（带后缀） 材料
+          rar a -r rartest.rar file1 file2 dir1
+          使用unrar解压
+          unrar x rartest.rar
+          
+          zip压缩
+          zip -r 压缩包名（带后缀） 材料
+          zip -r testzip.zip file1 file2 dir1
+          zip解压
+          unzip testzip.zip
+          
+          
+          
+          aptitude 绝大多数时可以替换apt-get
+          sudo aptitude show tree  查看show是否安装
+          
+          
           软链接
           即，快捷方式
           ln命令（link）来创建软链接

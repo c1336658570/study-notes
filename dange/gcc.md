@@ -59,3 +59,71 @@ ldd test（显示可执行文件test的链接库信息）
 gcc 会根据文件，进行默认链接（编译器和文件共同决定）
 
 将有关的目标文件彼此相连接，也即将在一个文件中引用的符号同该符号在另外一个文件中的定义连接起来，使得所有的这些目标文件成为一个能够诶操作系统装入执行的统一整体。
+
+
+
+-I 指定头文件所在目录位置
+
+-Wall 显示所有警告信息
+
+-D  向程序中”动态“注册宏定义
+
+-l：指定动态库库名
+
+L：指定动态库路径
+
+
+
+gcc -c add.c -o add.o
+
+gcc -c sub.c -o sub.o
+
+制作静态库 ar rcs libmymath.a add.o sub.o
+
+使用静态库 gcc test.c libmymath.a -o test
+
+制作动态库（生成与位置无关的代码 -fPIC）
+
+gcc -c add.c -o add.o -fPIC
+
+gcc -c sub.c -o sub.o -fPIC
+
+使用gcc -shared 制作动态库
+
+gcc -shared -o libmymath.so add.o sub.o
+
+编译可执行程序时指定所使用的动态库。-l：指定库名  L：指定库路径
+
+ -I：指定头文件路径
+
+gcc test.c -o test -l libmymath.so -L ./
+
+运行可执行程序会出错
+
+原因：
+
+​		链接器： 工作于链接阶段，工作时需要-l和-L
+
+​		动态链接器：工作于程序运行阶段，需要提供动态库所在目录位置。
+
+解决方法1：通过环境变量：export LD_LIBRARY_PATH=动态库路径
+
+运行程序成功，上述环境变量导入只是临时的，重启终端失效
+
+解决方法2：永久生效：写入终端配置文件
+
+​	vim ~/.bashrc
+
+​	写入 export LD_LIBRARY_PATH=动态库路径 保存
+
+解决方法3：将自己的动态库拷贝到标准C动态库
+
+​		cp libmymath.so /lib
+
+解决方法4：sudo vim /etc/ld.so.conf
+
+​					将自己的库的绝对路径拷贝进去
+
+​					执行sudo ldconfig -v 让自己的路径生效
+
+ldd a.out  查看可执行文件动态链接库的信息

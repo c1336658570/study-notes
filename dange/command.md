@@ -14,7 +14,7 @@ su - 切换到超级用户，目录不变
 
 passwd  默认修改当前用户密码
 
-passwd username   修改其他用户密码
+sudo passwd username   修改其他用户密码
 
 sudo adduser 新用户名
 
@@ -195,6 +195,114 @@ $grep -r 'copy' ~ -n 找家目录中包含'copy'的，-n显示行号
 ps aux 显示进程
 
 ps aux | grep "kernel" 显示所有和内核相关进程
+
+
+
+cat & 后台运行
+
+jobs 显示当前shell下正在运行哪些作业
+
+fg和bg 前后台切换
+
+
+
+kill [-signal | -s signal] pid ... 向进程发送信号
+
+top 文字版任务管理器
+
+alias pg='ps aux | grep'  给ps aux | grep起了个别名叫pg
+
+wc 使用
+
+1、命令基本格式为：
+
+wc [选项] 文件 ...
+
+2、选项参数主要有：
+
+-c 统计字节数。
+
+-l 统计行数。
+
+-m 统计字符数。这个标志不能与 -c 标志一起使用。
+
+-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
+
+-L 打印最长行的长度。
+
+-help 显示帮助信息并退出
+
+--version 显示版本信息并退出
+
+制作静态库
+
+gcc -c add.c -o add.o
+
+gcc -c sub.c -o sub.o
+
+ar rcs libmymath.a add.o sub.o
+
+使用静态库 gcc test.c libmymath.a -o test -I ./mymath.h
+
+制作动态库（生成与位置无关的代码 -fPIC）
+
+gcc -c add.c -o add.o -fPIC
+
+gcc -c sub.c -o sub.o -fPIC
+
+使用gcc -shared 制作动态库
+
+gcc -shared -o libmymath.so add.o sub.o
+
+编译可执行程序时指定所使用的动态库。-l：指定库名  L：指定库路径
+
+ -I：指定头文件路径
+
+gcc test.c -o test -l libmymath.so -L ./
+
+运行可执行程序会出错
+
+原因：
+
+​		链接器： 工作于链接阶段，工作时需要-l和-L
+
+​		动态链接器：工作于程序运行阶段，需要提供动态库所在目录位置。
+
+解决方法1：通过环境变量：export LD_LIBRARY_PATH=动态库路径
+
+运行程序成功，上述环境变量导入只是临时的，重启终端失效
+
+解决方法2：永久生效：写入终端配置文件
+
+​	vim ~/.bashrc
+
+​	写入 export LD_LIBRARY_PATH=动态库路径 保存
+
+解决方法3：将自己的动态库拷贝到标准C动态库
+
+​		cp libmymath.so /lib
+
+解决方法4：sudo vim /etc/ld.so.conf
+
+​					将自己的库的绝对路径拷贝进去
+
+​					执行sudo ldconfig -v 让自己的路径生效
+
+ldd a.out  查看可执行文件动态链接库的信息
+
+strace ./a.out 查看程序在执行时的系统调用
+
+wc
+
+-l , --lines : 显示行数；
+
+-w , --words : 显示字数；
+
+-m , --chars : 显示字符数；
+
+-c , --bytes : 显示字节数；
+
+-L , --max-line-length : 显示最长行的长度；
 
 ## 重定向：
 

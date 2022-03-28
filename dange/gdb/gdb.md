@@ -14,23 +14,25 @@ gcc -o filemane filename.c -g  debug模式（gcc命令添加-g选项）
 
 
 
-l 显示代码  l#显示第#行代码
+l/list 显示代码  l#显示第#行代码
 
-b 打断点
+b/breakpoint 打断点
 
 info b 查看断点
 
-d 断点编号 删除断点
+d 根据断点编号删除断点
 
-r 运行程序（断点处停下）
+r/run 运行程序（断点处停下）
 
-n 下一步，遇到函数不进入
+n/next 下一步，遇到函数不进入
 
 s/step 下一步，跳转到函数内部
 
+p/printf p i 查看变量i的值
+
 continue/c 运行到下一个断点停止
 
-finish 直接将函数执行完，结束函数调用，停下
+finish 结束当前函数调用
 
 display 常显示
 
@@ -38,7 +40,24 @@ display i  显示变量i的值，类似监控变量
 
 display &i 显示变量i的地址
 
-undisplay 编号 取消常显示
+undisplay 根据编号取消常显示
 
 until #  跳转到第#行
 
+
+
+run：使用run查找段错误出现的位置
+
+set args：设置main函数命令行参数（在start、run之前）
+
+run 字符串1 字符串2...：设置main函数命令行参数
+
+b 20 if i = 5：设置条件断点
+
+ptype：查看变量类型
+
+bt：列出当前程序正存活着的栈帧
+
+display：设置根据变量
+
+undisplay：取消设置跟踪变量，使用跟踪变量编号

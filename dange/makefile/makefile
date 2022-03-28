@@ -1,8 +1,20 @@
-mybin:main.o test.o
-	gcc $^ -o $@
-%.o:%.c
-	gcc -c $<
+src = $(wildcard ./src/*.c) # ./src/add.c ./src/sub.c ...
+obj = $(patsubst ./src/%.c, ./obj/%.o, $(src)) #./obj/add.o ./obj/sub.o ...
 
-.PHONY:clean
+inc_path=./inc
+
+myArgs=-Wall -g
+
+ALL:a.out
+
+a.out: $(obj)
+	gcc $^ -o $@ $(myArgs)
+
+%,out:$(obj)
+	gcc $<
+
+$(obj):./obj/%.o:./src/%.c
+	gcc -c $< -o $@ $(myArgs) -I $(inc_path)
+
 clean:
-	rm -f *.o mybin
+	-rm -rf $(obj)
