@@ -304,6 +304,12 @@ wc
 
 -L , --max-line-length : 显示最长行的长度；
 
+od -tcx filename  查看文件的16进制表示形式
+
+od -tcd filename 查看文件的10进制表示形式
+
+ulimit -a 查看限制
+
 ## 重定向：
 
 find /home -name test.c 在home中找名为test.c的文件，将其路径和错误输出到终端
@@ -421,3 +427,4 @@ ping -c3 www.baidu.com  检测是否可以访问www.baidu.com，即查看是否�
 ifup  通过端口号连接网路
 
 ifdown  关闭网络
+
