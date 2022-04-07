@@ -61,3 +61,6 @@ bt：列出当前程序正存活着的栈帧
 display：设置根据变量
 
 undisplay：取消设置跟踪变量，使用跟踪变量编号
+
+set follow-fork-mode child 设置gdb在fork后跟踪子进程
+set follow-fork-mode parent 设置跟踪父进程
