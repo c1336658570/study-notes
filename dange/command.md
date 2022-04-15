@@ -195,6 +195,7 @@ $grep -r 'copy' ~ -n 找家目录中包含'copy'的，-n显示行号
 ps aux 显示进程
 
 ps aux | grep "kernel" 显示所有和内核相关进程
+ps ajx
 
 
 
