@@ -50,7 +50,7 @@ stat filename  查看文件stat结构体（文件属性）
 
 mkdir  dir 创建目录dir（默认创建一个）
 
-mkdir -p dir1/dir2/dir3 递归创建 dir1/dir2/dir3 
+mkdir -p dir1/dir2/dir3 递归创建 dir1/dir2/dir3
 
 rmdir dir 删除空目录dir
 
@@ -196,7 +196,7 @@ ps aux 显示进程
 
 ps aux | grep "kernel" 显示所有和内核相关进程
 ps ajx
-
+ps -Lf 进程id --> 线程号。LWP -->cpu执行的最小单位
 
 
 cat & 后台运行
@@ -205,6 +205,8 @@ jobs 显示当前shell下正在运行哪些作业
 
 fg和bg 前后台切换
 
+sh -c ""  执行任意命令
+sh -c "ls -l"
 
 
 kill [-signal | -s signal] pid ... 向进程发送信号
@@ -234,6 +236,11 @@ wc [选项] 文件 ...
 -help 显示帮助信息并退出
 
 --version 显示版本信息并退出
+
+od -tcx testmap  查看有文件空洞的文家内容
+ctrl + z 让进程后台运行
+bg 查看后台运行的进程
+fg 恢复后台运行的进程
 
 制作静态库
 
@@ -310,6 +317,13 @@ od -tcx filename  查看文件的16进制表示形式
 od -tcd filename 查看文件的10进制表示形式
 
 ulimit -a 查看限制
+
+time ./a.out 查看程序执行时间
+实际时间 = 用户时间 + 内核时间 + 等待时间。 --》优化瓶颈I/O
+
+netstat -apn | grep client 查看客户端状态
+
+netstat -apn | grep 8000 查看端口号为8000的状态
 
 ## 重定向：
 
@@ -428,4 +442,3 @@ ping -c3 www.baidu.com  检测是否可以访问www.baidu.com，即查看是否�
 ifup  通过端口号连接网路
 
 ifdown  关闭网络
-
