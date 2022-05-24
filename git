@@ -78,3 +78,16 @@ git log 查看提交日志
 /temp  仅忽略项目根目录下的TODO文件，不包括其他目录的temp
 build/ 忽略build目录下的文件
 doc/*.txt 会忽略doc/notes.txt但不包括doc/server/arch.txt
+
+
+
+# git 游戏
+
+1. git commit
+
+2.
+git branch bugFix 创建一个分支
+git checkout bugFix 切换到bugFix分支
+如果你想创建一个新的分支同时切换到新创建的分支的话，可以通过 git checkout -b <your-branch-name> 来实现。
+
+

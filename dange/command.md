@@ -325,6 +325,28 @@ netstat -apn | grep client 查看客户端状态
 
 netstat -apn | grep 8000 查看端口号为8000的状态
 
+ehco $? 查看返回值
+
+-std=c++0x 参数打开对c++11的支持
+
+man inet_addr 
+man inet_pton 
+man 7 ip  
+
+ctags：查看函数调用关系...。
+
+生成一个tags文件，组织目录内所有.c函数调用关系
+
+生成方法：项目目录下ctags ./* -R 或者 在任意一个文件内ctrl+p
+
+命令：ctrl+] 光标放置于函数上，跳转至函数定义位置
+
+ctrl+t 返回此前跳转位置
+
+ctrl+o 在屏幕左边列出文件列表 再次ctrl+o 关闭
+
+F4 在屏幕右边列出函数列表 再次F4关闭
+
 ## 重定向：
 
 find /home -name test.c 在home中找名为test.c的文件，将其路径和错误输出到终端
