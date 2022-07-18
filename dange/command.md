@@ -347,6 +347,12 @@ ctrl+o 在屏幕左边列出文件列表 再次ctrl+o 关闭
 
 F4 在屏幕右边列出函数列表 再次F4关闭
 
+
+
+unicode 大学 查看大学的unicode编码
+
+telent 127.0.0.1 9999 连接本地服务器
+
 ## 重定向：
 
 find /home -name test.c 在home中找名为test.c的文件，将其路径和错误输出到终端
@@ -386,6 +392,8 @@ wc：统计行数，-l将行的总数统计出来
 last | grep cccccc | awk '{print $1, $4, $5, $6, $7}'
 
 将1 4 5 6 7列的数据输出
+
+/etc/services 里面包含一些协议默认的端口号
 
 
 
