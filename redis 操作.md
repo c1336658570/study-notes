@@ -391,6 +391,198 @@ OK
 1) "mian"
 2) "tiao"
 3) "ding"
+```
 
+```bash
+#####srandmember（抽随机）操作
+127.0.0.1:6379> sadd myset 1 2 3 4 5 6 7  #在set中添加7个元素
+(integer) 7
+127.0.0.1:6379> SMEMBERS myset
+1) "1"
+2) "2"
+3) "3"
+4) "4"
+5) "5"
+6) "6"
+7) "7"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "4"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "1"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "5"
+127.0.0.1:6379> SRANDMEMBER myset  #不填后参数，默认抽1个值，但是下面返回不会带序号值
+"3"
+127.0.0.1:6379> SRANDMEMBER myset 3  #随机抽取myset中3个元素返回
+1) "1"
+2) "2"
+3) "3"
+127.0.0.1:6379> SRANDMEMBER myset 3  #随机抽取myset中3个元素返回
+1) "6"
+2) "3"
+3) "5"
+```
+
+```bash
+#####spop（随机删除元素）、smove（移动指定元素到新的集合中）操作
+127.0.0.1:6379> SMEMBERS myset
+1) "1"
+2) "2"
+3) "3"
+4) "4"
+5) "5"
+6) "6"
+7) "7"
+127.0.0.1:6379> spop myset  #随机删除1个元素，不指定参数值即删除1个
+"2"
+127.0.0.1:6379> spop myset 1  #随机删除1个元素
+1) "7"
+127.0.0.1:6379> spop myset 2  #随机删除2个元素
+1) "3"
+2) "5"
+127.0.0.1:6379> SMEMBERS myset  #查询删除后的结果
+1) "1"
+2) "4"
+3) "6"
+127.0.0.1:6379> smove myset myset2 1  #移动指定set中的指定元素到新的set中
+(integer) 1
+127.0.0.1:6379> SMEMBERS myset  #查询原来的set集合
+1) "4"
+2) "6"
+127.0.0.1:6379> SMEMBERS myset2  #查询新的set集合，如果新的set存在，即往后加，如果不存在，则自动创建set并且加入进去
+1) "1"
+```
+
+```bash
+#####sdiff（差集）、sinter（交集）、sunion（并集）操作
+127.0.0.1:6379> sadd myset1 1 2 3 4 5
+(integer) 5
+127.0.0.1:6379> sadd myset2 3 4 5 6 7
+(integer) 5
+127.0.0.1:6379> SMEMBERS myset1
+1) "1"
+2) "2"
+3) "3"
+4) "4"
+5) "5"
+127.0.0.1:6379> SMEMBERS myset2
+1) "3"
+2) "4"
+3) "5"
+4) "6"
+5) "7"
+127.0.0.1:6379> SDIFF myset1 myset2  #查询指定的set之间的差集，可以是多个set
+1) "1"
+2) "2"
+127.0.0.1:6379> SINTER myset1 myset2  #查询指定的set之间的交集，可以是多个set
+1) "3"
+2) "4"
+3) "5"
+127.0.0.1:6379> sunion myset1 myset2  #查询指定的set之间的并集，可以是多个set
+1) "1"
+2) "2"
+3) "3"
+4) "4"
+5) "5"
+6) "6"
+7) "7"
+
+#总结：可实现共同好友、共同关注等需求。
+```
+
+### **Hash**（哈希）
+
+```bash
+#####hset（添加hash）、hget（查询）、hgetall（查询所有）、hdel（删除hash中指定的值）、hlen（获取hash的长度）、hexists（判断key是否存在）操作
+127.0.0.1:6379> hset myhash age 23 high 173
+(integer) 2
+127.0.0.1:6379> hgetall myhash
+1) "name"
+2) "dingdada"
+3) "age"
+4) "23"
+5) "high"
+6) "173"
+127.0.0.1:6379> hkeys myhash  #获取指定hash中的所有key
+1) "name"
+2) "age"
+3) "high"
+127.0.0.1:6379> hvals myhash   #获取指定hash中的所有value
+1) "dingdada"
+2) "23"
+3) "173"
+127.0.0.1:6379> hincrby myhash age 2  #让hash中age的value指定+2(自增)
+(integer) 25
+127.0.0.1:6379> hincrby myhash age -1  #让hash中age的value指定-1(自减)
+(integer) 24
+127.0.0.1:6379> hsetnx myhash nokey novalue  #添加不存在就新增返回新增成功的数量（只能单个增加哦）
+(integer) 1 
+127.0.0.1:6379> hsetnx myhash name miaotiao  #添加存在则失败返回0
+(integer) 0
+127.0.0.1:6379> hgetall myhash
+1) "name"
+2) "dingdada"
+3) "age"
+4) "24"
+5) "high"
+6) "173"
+7) "nokey"
+8) "novalue"
+
+#总结：比String更加适合存对象~
+```
+
+### **zSet**（有序集合）
+
+```bash
+#####zadd（添加）、zrange（查询）、zrangebyscore（排序小-大）、zrevrange（排序大-小）、zrangebyscore withscores（查询所有值包含key）操作
+127.0.0.1:6379> zadd myzset 1 one 2 two 3 three  #添加zset值，可多个
+(integer) 3
+127.0.0.1:6379> ZRANGE myzset 0 -1  #查询所有的值
+1) "one"
+2) "two"
+3) "three"
+#-inf 负无穷  +inf 正无穷
+127.0.0.1:6379> ZRANGEBYSCORE myzset -inf +inf  #将zset的值根据key来从小到大排序并输出
+1) "one"
+2) "two"
+3) "three"
+127.0.0.1:6379> ZRANGEBYSCORE myzset 0 1  #只查询key<=1的值并且排序从小到大
+1) "one"
+127.0.0.1:6379> ZREVRANGE myzset 1 -1  #从大到小排序输出
+1) "two"
+2) "one"
+127.0.0.1:6379> ZRANGEBYSCORE myzset -inf +inf withscores  #查询指定zset的所有值，包含序号的值
+1) "one"
+2) "1"
+3) "two"
+4) "2"
+5) "three"
+6) "3"
+```
+
+```bash
+#####zrem（移除元素）、zcard（查看元素个数）、zcount（查询指定区间内的元素个数）操作
+127.0.0.1:6379> zadd myset 1 v1 2 v2 3 v3 4 v4
+(integer) 4
+127.0.0.1:6379> ZRANGE myset 0 -1
+1) "v1"
+2) "v2"
+3) "v3"
+4) "v4"
+127.0.0.1:6379> zrem myset v3  #移除指定的元素，可多个
+(integer) 1
+127.0.0.1:6379> ZRANGE myset 0 -1
+1) "v1"
+2) "v2"
+3) "v4"
+127.0.0.1:6379> zcard myset  #查看zset的元素个数，相当于长度，size。
+(integer) 3
+127.0.0.1:6379> zcount myset 0 100  #查询指定区间内的元素个数
+(integer) 3
+127.0.0.1:6379> zcount myset 0 2  #查询指定区间内的元素个数
+(integer) 2
+
+#总结：成绩表排序，工资表排序，年龄排序等需求可以用zset来实现！
 ```
 
