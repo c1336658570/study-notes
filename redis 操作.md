@@ -366,3 +366,31 @@ OK
 - 如果移除了所有值，空链表，也代表不存在！
 - 在两边插入或者改动值，效率最高！ 中间元素，相对来说效率会低一点~
 - 消息排队！消息队列 （Lpush Rpop）， 栈（ Lpush Lpop）！
+
+### **Set**（集合）元素唯一不重复
+
+```bash
+#####sadd（添加）、smembers（查看所有元素）、sismember（判断是否存在）、scard（查看长度）、srem（移除指定元素）操作
+#set中所有的元素都是唯一的不重复的！
+127.0.0.1:6379> sadd set1 ding da mian tiao  #添加set集合（可批量可单个，写法一致，不再赘述）
+(integer) 4
+127.0.0.1:6379> SMEMBERS set1  #查看set中所有元素
+1) "mian"
+2) "da"
+3) "tiao"
+4) "ding"
+127.0.0.1:6379> SISMEMBER set1 da  #判断某个值在不在set中，在返回1
+(integer) 1
+127.0.0.1:6379> SISMEMBER set1 da1  #不在返回0
+(integer) 0
+127.0.0.1:6379> SCARD set1  #查看集合的长度，相当于size、length
+(integer) 4
+127.0.0.1:6379> srem set1 da  #移除set中指定的元素
+(integer) 1
+127.0.0.1:6379> SMEMBERS set1  #移除成功
+1) "mian"
+2) "tiao"
+3) "ding"
+
+```
+
