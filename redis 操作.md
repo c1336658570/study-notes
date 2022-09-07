@@ -412,6 +412,21 @@ OK
 127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
 1) "5"
 127.0.0.1:6379> SRANDMEMBER myset  #不填后参数，默认抽1个值，但是下面返回不会带序号值
+"3"127.0.0.1:6379> SMEMBERS myset
+1) "1"
+2) "2"
+3) "3"
+4) "4"
+5) "5"
+6) "6"
+7) "7"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "4"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "1"
+127.0.0.1:6379> SRANDMEMBER myset 1  #随机抽取myset中1个元素返回
+1) "5"
+127.0.0.1:6379> SRANDMEMBER myset  #不填后参数，默认抽1个值，但是下面返回不会带序号值
 "3"
 127.0.0.1:6379> SRANDMEMBER myset 3  #随机抽取myset中3个元素返回
 1) "1"
