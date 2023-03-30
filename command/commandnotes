@@ -364,3 +364,5 @@ Linux:\n
 其他格式文件一般都不需要，如*.xml,*.c
 Notepad++编辑 | 文档格式转换 | UNIX
 
+通过objdump反汇编，objdump -d test.o 查看test.o机器代码的汇编代码
+

@@ -77,7 +77,28 @@ git log 查看提交日志
 ！lib.txt 除了lib.txt
 /temp  仅忽略项目根目录下的TODO文件，不包括其他目录的temp
 build/ 忽略build目录下的文件
-doc/*.txt 会忽略doc/notes.txt但不包括doc/server/arch.txt
+doc/*.txt 会忽略doc/notes.txt但不包括doc/server/arch.txt*/
+
+code .
+ 3972  git rebase HEAD~5 -i
+ 3973  git pull
+ 3974  git rebase HEAD~5 -i
+ 3975  git push --force
+ 3976  git pull
+ 3977  git rebase HEAD~5 -i
+ 3978  git push --force
+ 3979  git switch a
+ 3980  git remote add upstream git@github.com:xiyou-linuxer/temp-interview.git
+ 3981  git pull upstream main
+ 3982  git rebase upstream/main
+ 3983  git rebase HEAD~8 -i
+ 3984  git push --force
+ 3985  git switch main
+ 3986  git log
+ 3987  git rebase upstream/main
+ 3988  git rebase HEAD~5 -i
+ 3989  git push --force
+
 
 
 
