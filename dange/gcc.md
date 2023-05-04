@@ -44,7 +44,7 @@ od test.o  以八进制展示文件内容
 
 gcc test.o -o test（默认动态链接）
 
-gcc test.o -o test_s -static 动态链接
+gcc test.o -o test_s -static 静态链接
 
 gcc test.c -o test -g  debug模式
 
