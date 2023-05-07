@@ -619,3 +619,100 @@ hostnamectl set-hostname asdasd	永久生效的修改注记名为asdasd
 在/etc/hosts中写入127.0.0.1 cccmmf
 ```
 
+## 软件包管理器的使用
+
+```bash
+Centos、RedHat使用yum，rpm格式软件包
+Debian、ubuntu使用apt，deb格式软件包
+```
+
+## 使用rpm命令安装软件包
+
+```bash
+vim-common-7.4.10-5.el7.x86_64.rpm
+软件名	软件版本 系统版本 平台
+
+rpm命令参数
+-q	查询软件包
+-i	安装
+-e	卸载
+rpm -qa	查询系统安装所有的软件包
+rpm -qa | more	分页显示系统安装的所有软件包
+```
+
+## 使用yum包管理器安装软件包
+
+```bash
+install
+remove
+list|grouplist	查看安装的软件包
+update
+```
+
+## 源代码编译安装软件包
+
+```bash
+wget https://...
+tar -zxf
+cd ...
+./configure --prefix=/usr/local/openresty
+make -j16
+make install
+```
+
+## 如何进行内核升级
+
+### 升级内核
+
+- rpm格式内核
+  - 查看内核版本
+    - uname -r
+    - uname -a
+  - 升级内核版本
+    - yum install kernel-3.10.0
+  - 升级已安装的其他软件包和补丁
+    - yum update
+
+### 源代码编译安装内核
+
+- 安装依赖包
+  - yum install gcc gcc-c++ make ncurses-devel openssl-devel elfutils-libelf-devel
+- 下载并解压缩内核
+  - https://www.kernel.org
+- tar xvf linux-5.1.10.tar.xz -C /usr/src/kernels
+- 配置内核编译参数
+  - cd /usr/src/kernels/linux-5.1.10/
+  - make menuconfig | allyesconfig | allnoconfig
+- 使用当前系统内核配置
+  - cp /boot/config-kernelversion.platform /usr/src/kernels/linux-5.1.10/.config
+- 查看cup
+  - lscpu
+- 编译
+  - make -j2 all
+- 安装内核
+  - make modules_install		安装内核支持的模块
+  - make install
+
+## grub配置文件
+
+- grub是什么
+- grub配置文件
+  - /etc/default/grub	默认grub配置，可通过修改此文件修改grub配置，然后通过grub2-mkconfig -o /boot/grub2/grub.cfg生成新的grub.cfg
+  - /etc/grub.d         其他一些更详细的grub配置，可通过修改此文件修改grub配置，然后通过grub2-mkconfig -o /boot/grub2/grub.cfg生成新的grub.cfg
+  - /boot/grub2/grub.cfg
+  - grub2-mkconfig -o /boot/grub2/grub.cfg
+- 使用但用户进入系统（忘记root密码）
+
+```bash
+grub2-editenv list	查看当前默认引导的内核
+grep ^menu /boot/grub/grub.cfg	查看当前系统有多少个可引导项
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-059d13a2-2e82-4832-b452-37f7033fdc83' {
+menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os $menuentry_id_option 'osprober-efi-1A1B-BBF0' {
+menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' {
+
+grub2-set-default	0	使用grub.cfg显示的第0项作为默认引导	ubuntu
+grub2-set-default	1	使用grub.cfg显示的第1项作为默认引导	windows Boot Manager
+```
+
+
+
