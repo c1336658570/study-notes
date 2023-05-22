@@ -399,5 +399,112 @@ Git中的“分离头指针”是指当前所在的提交不是任何分支的�
 
 HEAD 目前位于 5e6422d 笔记
 
+~/study-notes @5e6422de > ls                                           12:22:22
+ command   gdb   Linux101        makefile          'redis 操作.md'
+ dange     git   linux实战技能   markdownnotes.md   vimnotes
+
+~/study-notes @5e6422de > vim git                                      12:23:03
+在第一行添加asd
+
+~/study-notes @5e6422de > git add .                                    12:23:03
+
+~/study-notes @5e6422de +1 > git commit -m "笔记"                      12:24:05
+[分离头指针 9f60efb] 笔记
+ 1 file changed, 1 insertion(+)
+
+~/study-notes @9f60efb9 > git status                                   12:24:12
+头指针分离自 5e6422d
+无文件要提交，干净的工作区
+
+~/study-notes @9f60efb9 > git log --all --graph  --oneline             12:25:50
+* 9f60efb (HEAD) 笔记		#HEAD没有跟任何分支绑定，指向一个commit
+| * 76491ed (origin/main, origin/HEAD, main) 笔记
+| * 7ac54a6 笔记
+| * c5144d7 笔记
+|/  
+* 5e6422d 笔记
+
+~/study-notes @9f60efb9 > git checkout main                        10s 12:26:03
+警告：您正丢下 1 个提交，未和任何分支关联：
+
+  9f60efb 笔记
+
+如果您想要通过创建新分支保存它，这可能是一个好时候。
+如下操作：
+
+ git branch <新分支名> 9f60efb
+
+切换到分支 'main'
+您的分支与上游分支 'origin/main' 一致。
+
+~/study-notes main > gitk                                              12:26:51
+#通过gitk查看刚才那次分类头指针的提交是否存在，查看后发现不存在
+
+#可以使用git branch asd 9f60efb	新建一个分支asd与9f60efb这次提交对应
+```
+
+## 进一步理解HEAD和branch
+
+```bash
+~/study-notes main > git log --all --graph  --oneline              20s 12:27:56
+* 76491ed (HEAD -> main, origin/main, origin/HEAD) 笔记
+* 7ac54a6 笔记
+* c5144d7 笔记
+* 5e6422d 笔记
+* 27d9c8c 1
+* 71e1b0c 1
+* b102465 task
+* bcf6bb7 task
+* 18c1f21 redis学习笔记
+
+#创建ceshi分支并且换到ceshi分支，ceshi分支基于main分支
+/study-notes main !1 > git checkout -b ceshi main                     14:22:35 
+M	"git/git\344\270\211\346\235\277\346\226\247.md"
+切换到一个新分支 'ceshi'
+
+#HEAD不再指向main，而是指向ceshi
+~/study-notes ceshi !1 > git log --all --graph  --oneline -n1          14:23:07
+* 76491ed (HEAD -> ceshi, origin/main, origin/HEAD, main) 笔记
+
+~/study-notes ceshi !1 > gitk --all                                10s 14:24:10
+查看HEAD是否指向ceshi分支
+
+~/study-notes ceshi !1 > cat .git/HEAD                             36s 14:25:32
+ref: refs/heads/ceshi
+
+~/study-notes ceshi !1 > git log --all --graph  --oneline -n5          14:26:09
+* 76491ed (HEAD -> ceshi, origin/main, origin/HEAD, main) 笔记
+* 7ac54a6 笔记
+* c5144d7 笔记
+* 5e6422d 笔记
+* 27d9c8c 1
+
+~/study-notes ceshi !1 > git diff 76491ed 7ac54a6                   6s 14:27:52
+diff --git "a/git/git\344\270\211\346\235\277\346\226\247.md" "b/git/git\344\270
+\211\346\235\277\346\226\247.md"
+index a3c156d..dd92677 100644
+--- "a/git/git\344\270\211\346\235\277\346\226\247.md"
++++ "b/git/git\344\270\211\346\235\277\346\226\247.md"
+@@ -380,24 +380,6 @@ Git中的“分离头指针”是指当前所在的提交不是任何分支的
+ * 18c1f21 redis学习笔记
+ * 1296ad9 study notes
+
+~/study-notes ceshi !1 > git diff HEAD HEAD^1                       9s 14:28:04
+diff --git "a/git/git\344\270\211\346\235\277\346\226\247.md" "b/git/git\344\270\211\346\235\277\346\226\247.md"
+index a3c156d..dd92677 100644
+--- "a/git/git\344\270\211\346\235\277\346\226\247.md"
++++ "b/git/git\344\270\211\346\235\277\346\226\247.md"
+@@ -380,24 +380,6 @@ Git中的“分离头指针”是指当前所在的提交不是任何分支的
+ * 18c1f21 redis学习笔记
+ * 1296ad9 study notes
+
+~/study-notes ceshi !1 > git diff HEAD HEAD~1                      10s 14:28:41
+diff --git "a/git/git\344\270\211\346\235\277\346\226\247.md" "b/git/git\344\270\211\346\235\277\346\226\247.md"
+index a3c156d..dd92677 100644
+--- "a/git/git\344\270\211\346\235\277\346\226\247.md"
++++ "b/git/git\344\270\211\346\235\277\346\226\247.md"
+@@ -380,24 +380,6 @@ Git中的“分离头指针”是指当前所在的提交不是任何分支的
+ * 18c1f21 redis学习笔记
+ * 1296ad9 study notes
 ```
 
