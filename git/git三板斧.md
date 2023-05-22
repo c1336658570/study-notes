@@ -551,25 +551,26 @@ Date:   Mon May 22 14:30:20 2023 +0800
 
 ```bash
 ~/study-notes main <1>1 !1 > git log -3                            INT 15:39:28
-commit e0bed909ddbed5aac382e14cede9f865749e08dc (HEAD -> main)
+commit 779bd7355c8e0ecc326186b0bfea8b07cefdf639
+Merge: 6dcf422 34c0ce6
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 15:47:33 2023 +0800
+
+    笔记
+
+commit 6dcf4229fbd31fa7e5006a60a62b20dcd204e89f
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 15:42:50 2023 +0800
+
+    笔记
+
+commit e0bed909ddbed5aac382e14cede9f865749e08dc
 Author: c1336658570 <1336658570@qq.com>
 Date:   Mon May 22 14:30:20 2023 +0800
 
     git笔记
 
-commit 76491ed5bd4360788877d60fba58a975c75055d8
-Author: c1336658570 <1336658570@qq.com>
-Date:   Mon May 22 12:22:09 2023 +0800
+git rebase -i e0bed909dd
 
-    笔记
-
-commit 7ac54a6a173bfa4e5446a59cb44b9adc8637a205
-Author: c1336658570 <1336658570@qq.com>
-Date:   Mon May 22 12:19:28 2023 +0800
-
-    笔记
-
-=======
->>>>>>> 34c0ce69be18c14af2b27a533c3fc2455281887c
 ```
 
