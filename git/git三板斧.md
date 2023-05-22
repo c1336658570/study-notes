@@ -508,3 +508,65 @@ index a3c156d..dd92677 100644
  * 1296ad9 study notes
 ```
 
+## 怎么删除不需要的分支
+
+```bash
+git branch -av		#查看分支
+* main                34c0ce6 笔记
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main 34c0ce6 笔记
+git branch -d main	#删除main分支
+git branch -D main  #删除main分支
+```
+
+使用“git branch -d”或“git branch -D”命令进行，具体如下：
+
+1. 删除已经合并的分支：使用“git branch -d 分支名”命令，例如“git branch -d feature/branch-name”会删除名为“feature/branch-name”的分支（如果它已经合并到主线上）。
+2. 强制删除未合并的分支：使用“git branch -D 分支名”命令，例如“git branch -D feature/branch-name”会强制删除名为“feature/branch-name”的分支（即使它未被合并到主线上）。
+
+## 如何修改commit的message
+
+```bash
+~/study-notes main !1 > git log  -1                                    15:36:08
+git log -1
+commit 34c0ce69be18c14af2b27a533c3fc2455281887c (HEAD -> main, origin/main, origin/HEAD)
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 14:30:20 2023 +0800
+
+    笔记
+~/study-notes main !1 > git commit --amend                         HUP 15:36:49
+#对最近一次commit的message做变更
+
+~/study-notes main <1>1 !1 > git log -1                            23s 15:37:16
+commit e0bed909ddbed5aac382e14cede9f865749e08dc (HEAD -> main)
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 14:30:20 2023 +0800
+
+    git笔记
+
+```
+
+## 如何修改老旧的commit的message
+
+```bash
+~/study-notes main <1>1 !1 > git log -3                            INT 15:39:28
+commit e0bed909ddbed5aac382e14cede9f865749e08dc (HEAD -> main)
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 14:30:20 2023 +0800
+
+    git笔记
+
+commit 76491ed5bd4360788877d60fba58a975c75055d8
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 12:22:09 2023 +0800
+
+    笔记
+
+commit 7ac54a6a173bfa4e5446a59cb44b9adc8637a205
+Author: c1336658570 <1336658570@qq.com>
+Date:   Mon May 22 12:19:28 2023 +0800
+
+    笔记
+
+```
+
