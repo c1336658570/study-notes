@@ -583,3 +583,17 @@ git rebase -i e0bed909dd	#-i是打开一个交互页面
 例如，可以使用 `git rebase -i HEAD~3` 命令来对最近的 3 个提交进行交互式的变基操作。在编辑器中，可以对每个提交记录进行编辑、删除、重组等操作，并在保存后执行变基操作。
 
 这个命令对于合并提交的历史记录和压缩提交历史记录等场景特别有用。在使用 `git rebase -i` 命令之前，需要小心检查并备份分支历史，以避免意外删除或混淆提交。
+
+## 如何将多个commit合并为一个
+
+```bash
+git log --all  --oneline | more        
+7d94830 git笔记
+f9add14 git笔记
+779bd73 笔记
+6dcf422 笔记
+e0bed90 git笔记
+git rebase -i e0bed90
+会打开一个编译器，将其中的pick改为squash
+```
+
