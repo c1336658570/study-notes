@@ -111,4 +111,19 @@ git branch bugFix 创建一个分支
 git checkout bugFix 切换到bugFix分支
 如果你想创建一个新的分支同时切换到新创建的分支的话，可以通过 git checkout -b <your-branch-name> 来实现。
 
-
+git remote -v 可以查看本地已经关联的仓库。使用 git remote rm origin 可以删除远程库。
+$ cd uCore-Tutorial-Code-2023S
+# 你可以将 upstream 改为你喜欢的名字
+$ git remote add upstream https://github.com/LearningOS/uCore-Tutorial-Code-2023S.git
+# 更新仓库信息
+$ git fetch upstream
+# 查看已添加的远程仓库；应该能看到已有一个 origin 和新添加的 upstream 仓库
+$ git remote -v
+# 根据需求选择以下一种操作即可
+# 在本地新建一个与远程仓库对应的分支：
+$ git checkout -b ch4 upstream/ch4
+# 本地已有分支，从远程仓库更新：
+$ git checkout ch4
+$ git merge upstream/ch4
+# 将更新推送到自己的远程仓库
+$ git push origin ch4
