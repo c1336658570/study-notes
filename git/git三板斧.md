@@ -788,12 +788,87 @@ cd ~
 mkdir 666-backup
 cd 666-backup
 git clone --bare /home/cccmmf/study-notes/.git ya.git   #克隆  采用哑协议
-git clone --bare file:///home/cccmmf/study-notes/.git zhineng.git	#采用只能协议
+git clone --bare file:///home/cccmmf/study-notes/.git zhineng.git	#采用智能协议
 cd ~/study-notes
 ~/study-notes main +1 !2 > git remote -v                               13:51:42
 origin	git@github.com:c1336658570/study-notes.git (fetch)
 origin	git@github.com:c1336658570/study-notes.git (push)
 
-git remote add zhineng file:///home/cccmmf/666-backup/zhineng.git
+git remote add zhineng file:///home/cccmmf/666-backup/zhineng.git	#智能协议
+
+~/study-notes main >1 > git push zhineng                               13:55:32
+枚举对象中: 9, 完成.
+对象计数中: 100% (9/9), 完成.
+使用 16 个线程进行压缩
+压缩对象中: 100% (5/5), 完成.
+写入对象中: 100% (5/5), 4.26 KiB | 2.13 MiB/s, 完成.
+总共 5（差异 3），复用 0（差异 0），包复用 0
+To file:///home/cccmmf/666-backup/zhineng.git
+   bd78909..e1ed08a  main -> main
+   
+#study-notes那个目录下的commit情况
+~/study-notes main >1 !1 > git log --all  --oneline --graph | more  7s 13:56:19
+* e1ed08a git笔记
+* bd78909 git笔记
+* 5a2fa83 git笔记
+* 7d94830 git笔记
+* f9add14 git笔记
+#远端备份的那个目录的commit情况
+~/666-backup/zhineng.git > git log --all  --oneline --graph | more  7s 13:55:49
+* e1ed08a git笔记
+* bd78909 git笔记
+* 5a2fa83 git笔记
+* 7d94830 git笔记
+* f9add14 git笔记
+*   779bd73 笔记
+#study-notes那个目录下的分支情况
+* main                 e1ed08a [领先 1] git笔记
+  remotes/origin/HEAD  -> origin/main
+  remotes/origin/main  bd78909 git笔记
+  remotes/zhineng/main e1ed08a git笔记
+#远端备份的那个目录的分支情况
+* main e1ed08a git笔记
 ```
+
+ `git remote add` 命令添加远程仓库之后，可以使用 `git remote rm` 命令移除对应的远程仓库。
+
+1. 首先需要使用 `git remote` 命令查看当前 Git 仓库中已经存在的远程仓库列表，找到需要删除的远程仓库的名称。
+
+   ```
+   git remote
+   ```
+
+2. 使用 `git remote rm` 命令加上需要删除的远程仓库的名称进行删除操作。
+
+   ```
+   git remote rm <远程仓库名称>
+   ```
+
+   其中 `<远程仓库名称>` 是需要删除的远程仓库的名称。
+
+   例如，如果需要删除名为 `origin` 的远程仓库，可以执行以下命令：
+
+   ```
+   git remote rm origin
+   ```
+
+3. 确认删除后，可以使用 `git remote` 命令再次查看远程仓库列表，应该能够看到被删除的远程仓库已经不再显示。
+
+   ```
+   git remote
+   ```
+
+## 把本地仓库同步到github
+
+```bash
+git remote -v   #查看远端仓库
+git remote add github 复制github仓库的那个ssh地址	#将当前仓库和远端建立连接
+git push github --all	#将所有的推送到远端的github上 
+#当远端有修改过的东西，但是本地不存在时，git push 会出错
+git fetch github master	#将远端的github拉到master
+```
+
+
+
+
 
