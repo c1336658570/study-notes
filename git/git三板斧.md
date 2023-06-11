@@ -862,13 +862,61 @@ To file:///home/cccmmf/666-backup/zhineng.git
 
 ```bash
 git remote -v   #查看远端仓库
-git remote add github 复制github仓库的那个ssh地址	#将当前仓库和远端建立连接
-git push github --all	#将所有的推送到远端的github上 
-#当远端有修改过的东西，但是本地不存在时，git push 会出错
-git fetch github master	#将远端的github拉到master
+git remote add github 复制github仓库的那个ssh地址	#将当前仓库和远端建立连接，远程名字为github
+git push github --all	#将所有的推送到远端的github上，"--all"选项表示将本地仓库中的所有分支和标签都推送到远程仓库 
+#当远端有修改过的东西，但是本地不存在时，git push 会出错。
+#比如远端master有一些修改，但是本地master不存在，就会出错，如下是解决办法
+git fetch github master	#将远端的github的master拉下来
+#git fetch github master 是一个 Git 命令，用于从名为 "github" 的远程仓库中检索 "master" 分支的最新更改，但它并不会自动将这些更改合并到本地仓库中。
+#具体来说，这个命令会检查远程仓库 "github" 上的 "master" 分支的最新更新，并将这些更新下载到本地仓库的缓存中（称为 "远程跟踪分支"）。这将使得本地存储库知道远程存储库中的最新更改，但并不会应用于本地 "master" 分支。要将这些更新合并到本地 "master" 分支中，需要使用其他命令（例如 git merge 或 git pull 命令）来完成。
+#总之，git fetch github master 命令是 Git 工具中的一个命令，用于检索远程存储库 "github" 上 "master" 分支的最新更改，但它不会自动将这些更改合并到本地存储库中。
+git checkout master #切换到本地的master
+git merge github/master  #将本地master和远端master合并，此命令用于将名为 "github" 的远程仓库中的 "master" 分支中的更改合并到当前本地分支中。如果两个commit历史都是独立的，即本地分支和远程仓库中的分支没有共同的祖先时，意味着本地和远端的commit在两个不同的树上，进行merge会出错，可以采用如下命令
+git merge --allow-unrelated-histories github/master	#会弹出来一个输入页面，让你写merge原因
+#git merge --allow-unrelated-histories github/master 是一个 Git 命令，用于将名为 "github" 的远程仓库中的 "master" 分支中的更改合并到当前本地分支中，并且允许合并无关历史的分支。
+#当本地分支和远程仓库中的分支没有共同的祖先时，Git 会拒绝合并操作，因为它们的历史记录是独立的，Git 不能自动将它们连接起来。但是，使用 "--allow-unrelated-histories" 选项，Git 就会将它们视为没有共同祖先的两个独立的分支，并允许将它们合并在一起。
+#该命令执行合并操作时，可能会导致合并冲突，需要手动解决冲突并提交更改。
+#总之，git merge --allow-unrelated-histories github/master 命令是 Git 工具中的一个命令，用于将名为 "github" 的远程仓库中的 "master" 分支中的更改合并到当前本地分支中，并允许合并没有共同祖先的两个分支历史。
+
+#当使用git merge后可以使用如下命令将本地推送到远端
+git push github master
 ```
 
+`git pull` 和 `git fetch` 都是 Git 中用于更新远程仓库代码到本地仓库的命令，但它们的具体含义和行为略有不同。`git fetch` 用于从远程仓库检索最新的代码更改，但不会自动合并这些更改到本地分支。这个命令会将远程代码库的所有分支和标签都更新到本地的缓存中，但是代码库最新的更改并不会应用到本地分支中。因此，如果使用了 "git fetch" 命令，需要使用其他命令（例如 "git merge" 或 "git rebase"）将远程最新的代码更改合并到本地分支上。`git pull` 命令则将本地仓库和远程仓库的代码合并到一个步骤中，包括检索最新的代码更改和自动合并这些更改到当前的本地分支。它实质上相当于运行 "git fetch" 命令检索更新，然后运行 "git merge" 将更新合并到本地分支中。
 
+## 不同人修改了不同文件如何处理
+
+```bash
+在远端创建一个仓库其中有一个名为feature/add_git_commands的分支
+#a用户克隆远端的仓库，然后使用如下命令在本地创建一个同名分支分支，基于远端的feature/add_git_commands
+git checkout -b origin/feature/add_git_commands origin/feature/add_git_commands
+#然后a用户修改feature/add_git_commands分支下的文件，并推送到远端
+git add .
+git  commit -m "a"
+git push
+
+#b用户先fetch 远端仓库
+git fetch github
+#使用如下命令创建新分支
+git checkout -b origin/feature/add_git_commands origin/feature/add_git_commands
+#然后修改feature/add_git_commands分支下的文件，并推送到远端
+git add .
+git commit -m "b"
+
+#不进行push，然后切换到a用户，a用户修改feature/add_git_commands下的文件，然后执行如下命令
+git add .
+git commit -m "a"
+git push
+
+#切换回a用户，进行git push github
+git push github	#报错，无法推送到远端，远端仓库已经修改了
+#先fetch
+git fetch github
+#然后使用merge
+git merge github/feature/add_git_commands
+#使用git push推送
+git push
+```
 
 
 

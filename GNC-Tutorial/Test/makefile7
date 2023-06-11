@@ -1,0 +1,49 @@
+lib_srcs := $(shell find src -name *.cpp)
+#利用fileter-out函数，去掉lib_srcs中的src/main.cpp
+lib_srcs := $(filter-out src/main.cpp,$(lib_srcs))
+lib_objs := $(patsubst src/%.cpp,objs/%.o,$(lib_srcs))
+
+include_paths := ./include
+
+Library_paths := ./lib
+
+linking_libs := xxx
+
+I_options := $(include_paths:%=-I%)
+l_options := $(linking_libs:%=-l%)
+L_options := $(Library_paths:%=-L%)
+
+compile_flags := -g -O3 -std=c++11 $(I_options)
+linging_flags := $(l_options) $(L_options)
+
+#============编译静态库==============
+objs/%.o : src/%.cpp
+	@mkdir -p $(dir $@)
+	@g++ -c $^ -o $@ $(compile_flags)
+
+lib/libxxx.a : $(lib_objs)
+	@mkdir -p $(dir $@)
+	ar -r $@ $^
+
+static_lib : lib/libxxx.a
+
+#============链接静态库==============
+objs/main.o : src/main.cpp
+	@mkdir -p $(dir $@)
+	@g++ -c $^ -o $@ $(compile_flags)
+
+workspace/exec : objs/main.o 
+	@mkdir -p $(dir $@)
+	@g++ $^ -o $@ $(linging_flags)
+
+run : workspace/exec
+	@./$<
+
+debug : 
+	@echo $(lib_srcs)
+	@echo $(lib_objs)
+
+clean:
+	@rm -rf objs
+
+.PHONY : debug static_lib clean workspace

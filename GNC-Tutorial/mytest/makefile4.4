@@ -1,0 +1,29 @@
+#找/usr/lib下的所有以lib开头的文件
+libs := ${shell find /usr/lib -name lib*}
+
+#notdir 会去掉lib中的所有文件路径，只保留文件名
+libs := $(notdir $(libs))
+
+#filter函数会去找所有以.a后缀结尾的文件，并将其拿出来
+a_libs := $(filter %.a,$(libs))
+#basename函数会去掉文件后缀
+a_libs := $(basename $(a_libs))
+#使用subst将a_libs出现的所有lib替换为空
+a_libs := $(subst lib,,$(a_libs))
+#上面三条命令等于如下命令
+#a_libs := $(subst lib,,$(basename $(filter %.a,$(libs))))
+
+
+#filter函数会去找所有以.so后缀结尾的文件，并将其拿出来
+so_libs := $(filter %.so,$(libs))
+#basename函数会去掉文件后缀
+so_libs := $(basename $(so_libs))
+#使用subst将so_libs出现的所有lib替换为空
+so_libs := $(subst lib,,$(so_libs))
+#上面三条命令等于如下命令
+#so_libs := $(subst lib,,$(basename $(filter %.so,$(libs))))
+
+debug:
+	@echo ${libs}
+	@echo ${a_libs}
+	@echo ${so_libs}

@@ -62,6 +62,7 @@ gcc 会根据文件，进行默认链接（编译器和文件共同决定）
 
 
 
+```bash
 -I 指定头文件所在目录位置
 
 -Wall 显示所有警告信息
@@ -71,6 +72,7 @@ gcc 会根据文件，进行默认链接（编译器和文件共同决定）
 -l：指定动态库库名
 
 L：指定动态库路径
+```
 
 
 
@@ -92,9 +94,10 @@ gcc -c sub.c -o sub.o -fPIC
 
 gcc -shared -o libmymath.so add.o sub.o
 
+```
 编译可执行程序时指定所使用的动态库。-l：指定库名  L：指定库路径
-
  -I：指定头文件路径
+```
 
 gcc test.c -o test -l libmymath.so -L ./
 

@@ -1,0 +1,7 @@
+clean:
+	@rm -rf objs
+
+debug : 
+	@echo hello
+
+.PHONY: clean debug

@@ -1,0 +1,18 @@
+cpp := src/main.cpp
+obj := objs/main.o
+
+$(obj) : ${cpp}
+# @g++ -c $(cpp) -o ${obj}
+# @g++ -c $< -o $@
+	@g++ -c $^ -o $@
+
+compile : $(obj)
+
+debug :
+	@echo $(cpp)
+	@echo $(obj)
+
+clean : 
+	@rm objs/main.o
+
+.PHONY : compile debug clean

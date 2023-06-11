@@ -1,0 +1,32 @@
+HOST_ARCH = aarch64
+TARGET_ARCH = $(HOST_ARCH)
+
+HOST_ARCH2 := aarch64
+TARGET_ARCH2 := $(HOST_ARCH2)
+
+HOST_ARCH3 = aarch64
+HOST_ARCH3 ?= amd64
+
+include_paths := src
+CXXFLAGS := -m64 -fPIC -g -O0 -std=c++11 -w -fopenmp
+CXXFLAGS += $(include_paths)
+
+LDLIBS := cudart opencv_core \
+          gomp nvinfer protobuf cudnn pthread \
+          cublas nvcaffe_parser nvinfer_plugin 
+
+# ...
+
+#...
+HOST_ARCH = amd64
+
+HOST_ARCH2 := amd64
+
+debug:
+	@echo $(TARGET_ARCH)
+
+	@echo $(TARGET_ARCH2)
+
+	@echo ${HOST_ARCH3}
+
+	@echo ${CXXFLAGS}

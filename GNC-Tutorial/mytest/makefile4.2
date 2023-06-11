@@ -1,0 +1,17 @@
+
+include_paths := /usr/include \
+								 /usr/include/rpc
+#include_paths := $(foreach item,${include_paths},-I${item})
+#foreach的含义
+#for item in include_paths:
+#	item = "-I" + item
+
+#比foreach更简单的方式
+I_flag := ${include_paths:%=-I%}
+
+#-I 指定头文件所在目录位置，编译的时候需要给每个路径都添加-I比较麻烦，可以直接使用foreach，为其添加-I
+#g++ -c *.cpp -o *.o -I/usr/include -I/usr/include/rpc
+
+debug : 
+	@echo ${include_paths}
+	@echo ${I_flag}
