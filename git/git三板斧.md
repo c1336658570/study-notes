@@ -887,7 +887,7 @@ git push github master
 ## 不同人修改了不同文件如何处理
 
 ```bash
-在远端创建一个仓库其中有一个名为feature/add_git_commands的分支
+#在远端创建一个仓库其中有一个名为feature/add_git_commands的分支
 #a用户克隆远端的仓库，然后使用如下命令在本地创建一个同名分支分支，基于远端的feature/add_git_commands
 git checkout -b origin/feature/add_git_commands origin/feature/add_git_commands
 #然后a用户修改feature/add_git_commands分支下的文件，并推送到远端
@@ -918,5 +918,138 @@ git merge github/feature/add_git_commands
 git push
 ```
 
+## 不同人修改了同文件不同区域
 
+```bash
+#a用户修改c文件，然后执行以下操作
+git add .
+git commit -m "b"
 
+#b用户修改c文件的不同区域，然后执行以下操作
+git add .
+git commit -m "b"
+
+#a用户执行以下操作
+git push github
+
+#b用户执行如下操作
+git push	#报错，按照如下步骤解决
+get fetch
+git merge origin/feature/add_git_commands
+git push
+```
+
+## 不同人修改了同文件同区域
+
+```bash
+#a用户修改c文件，然后执行以下操作
+git add .
+git commit -m "c"
+git push
+
+#b用户修改了c文件的相同区域，然后执行以下操作
+git add .
+git commit -m "c"
+git push	#报错
+#然后执行git pull，git pull等同于先git fetch再git merge	也报错，因为有不同人修改了同文件同区域，git无法处理，需要你手动处理
+git status	#查看暂存区状态，看哪个文件被多人修改了
+#打开那个有不同人修改了不同区域的文件，按照提示信息，进行修改，修改完毕后执行以下操作
+git add .
+git commit -m "c"
+git push
+```
+
+## 同时变更了文件名和文件内容如何处理（一个人改文件名，一个人改文件内容）
+
+```bash
+#a用户执行以下操作
+git mv c d
+git commit -am "mv c to d"
+git push
+
+#b用户打开c文件并修改文件内容，然后执行以下操作
+git commit -am "c"
+git push	#报错
+git pull	#成功，git会知道一个人修改了文件名，一个人修改了文件内容
+#git pull之后，文件名变为了d，然后文件内容也是b用户修改后的内容
+```
+
+## 多人将同一文件改为不同文件名如何处理
+
+```bash
+#a用户
+git mv c c1
+git commit -am "mv c to c1"
+
+#b用户
+git mv c c2
+git commit -am "mv c to c2"
+
+#a用户
+git push
+
+#b用户
+git push	#报错
+git pull	#报冲突
+ls -al	#查看当前路径有哪些文件，发现c1和c2都存在
+#使用diff比较c1和c2的内容
+diff c1 c2	#没有输出，说明c1和c2的内容是完全一样的
+git status	#查看状态，以下是status的关键信息
+both deleted c		#都删除了c
+added by us:	c2	#我们添加c2
+added by them:	c1	#别人添加c1
+use git add/rm <file>....
+########################
+#git status会有提示，教你如何做
+git rm c		#删除c
+git status	#查看状态，以下是status的关键信息
+added by us:	c2	#我们添加c2
+added by them:	c1	#别人添加c1
+use git add <file>....
+########################
+git add c1
+git status	#查看状态，以下是status的关键信息
+added by us:	c2	#我们添加c2
+########################
+git rm c2
+git status	#查看状态，以下是status的关键信息
+use git pull...
+use git commit...
+########################
+git commit -am "c2"
+git push
+```
+
+## 禁止向集成分支执行push -f操作
+
+```bash
+~/study-notes main !1 > git log --all  --oneline --graph | more        10:27:40
+* 208d387 笔记
+* 1471271 git笔记
+* e1ed08a git笔记
+* bd78909 git笔记
+* 5a2fa83 git笔记
+* 7d94830 git笔记
+* f9add14 git笔记
+*   779bd73 笔记
+|\  
+| * 34c0ce6 笔记
+* | 6dcf422 笔记
+* | e0bed90 git笔记
+|/  
+* 76491ed 笔记
+* 7ac54a6 笔记
+* c5144d7 笔记
+* 5e6422d 笔记
+* 27d9c8c 1
+
+git reset --hard 27d9c8c
+git log	#查看commit历史
+git push -f #执行完git push -f后，只剩下27d9c8c和27d9c8c以前的commit历史记录，以后的全部清除了
+```
+
+## 禁止向集成分支执行变更历史的操作（rebase）
+
+## github为什么会火
+
+看pdf
