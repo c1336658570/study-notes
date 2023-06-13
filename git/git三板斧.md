@@ -1053,3 +1053,35 @@ git push -f #执行完git push -f后，只剩下27d9c8c和27d9c8c以前的commit
 ## github为什么会火
 
 看pdf
+
+## 如何快速淘到自己感兴趣的开源项目
+
+```bash
+在gihub搜索栏搜索
+github搜代码和搜仓库不能同时使用
+#搜仓库
+git 最好 学习 资料 in:readme stars:>1000
+blob easily start in:readme stars:>5000
+#搜代码
+filename:git
+```
+
+## github如何搭建个人博客
+
+## 开源项目如何保证代码质量
+
+## 为何需要组织类型的仓库
+
+## 创建团队项目
+
+## 怎样选择适合自己团队的工作流
+
+看pdf
+
+## 如何挑选合适的分支集成策略
+
+## 启用issue跟踪需求和任务
+
+## 如何用project管理issue
+
+## 项目内部怎么实施code review
