@@ -4,6 +4,7 @@ obj := objs/main.o
 $(obj) : ${cpp}
 # @g++ -c $(cpp) -o ${obj}
 # @g++ -c $< -o $@
+	@mkdir -p $(dir $@)
 	@g++ -c $^ -o $@
 
 compile : $(obj)
@@ -13,6 +14,6 @@ debug :
 	@echo $(obj)
 
 clean : 
-	@rm objs/main.o
+	@rm -rf objs
 
 .PHONY : compile debug clean
