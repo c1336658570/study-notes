@@ -42,7 +42,7 @@ man 1 passwd		命令passwd的帮助
 
 man 5 passwd		配置文件/etc/passwd文件的帮助
 
-man -a passwd		有多个同名的东西在man手册里，使用man -a passwd 可以一个一个查看
+man -a passwd		有多个同名的东西在man手册里，使用man -a passwd 可以一个一个查看，man会从手册第一章开始，逐个搜索，如果当前内容不是你想要的，可以使用q退出，然后继续看下一个
 
 ### help
 
@@ -61,6 +61,12 @@ ls --help
 type cd		cd is a shell builtin
 
 type ls		  ls is an alias for ls --color=tty
+
+### info帮助
+
+比hel更详细，作为help的补充
+
+info ls
 
 ## pwd和ls命令
 
